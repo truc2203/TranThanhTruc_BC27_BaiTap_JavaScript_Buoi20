@@ -1,0 +1,28 @@
+.sp-thongbao {
+  background: linear-gradient(330deg, #e5da18 0%, #6a54cc 25%, #9e297f 50%, #7809e8 75%, #e11313 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+  font-size: 14px;
+  margin-top: 4px;
+}
+
+#SapXepGiam{
+	display: none;
+}
+
+#content{
+	width: 100%;
+	background: #74ebd5;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #ACB6E5, #74ebd5);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #ACB6E5, #74ebd5); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+
+.myCardHeader, .myCardFooter{
+	background-color: transparent;       
+}
+.container {
+  max-width: 1200px;
+}
