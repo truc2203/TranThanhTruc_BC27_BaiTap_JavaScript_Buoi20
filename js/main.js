@@ -101,14 +101,14 @@ function resetForm() {
   document.getElementById("gioLam").value = "";
   document.getElementById("btnThemNV").disabled = false;
   document.getElementById("tknv").disabled = false;
-  document.getElementById("tbTKNV").innerHTML = ""
-  document.getElementById("tbTen").innerHTML = ""
-  document.getElementById("tbEmail").innerHTML = ""
-  document.getElementById("tbMatKhau").innerHTML = ""
-  document.getElementById("tbNgay").innerHTML = ""
-  document.getElementById("tbLuongCB").innerHTML = ""
-  document.getElementById("tbChucVu").innerHTML = ""
-  document.getElementById("tbGiolam").innerHTML = ""
+  document.getElementById("tbTKNV").innerHTML = "";
+  document.getElementById("tbTen").innerHTML = "";
+  document.getElementById("tbEmail").innerHTML = "";
+  document.getElementById("tbMatKhau").innerHTML = "";
+  document.getElementById("tbNgay").innerHTML = "";
+  document.getElementById("tbLuongCB").innerHTML = "";
+  document.getElementById("tbChucVu").innerHTML = "";
+  document.getElementById("tbGiolam").innerHTML = "";
 }
 
 //Xoá staff
@@ -179,39 +179,105 @@ function findAccount(account) {
 function validation() {
   var staff = DOMStaff();
   var isValid = true;
+  var accountPattern = new RegExp("^[a-z0-9]{4,6}$");
+  var fullNamePattern = new RegExp("^[A-Za-z$]");
+  var pwPattern = new RegExp(
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+  );
+  var emailPattern = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$");
+  var dowPattern = new RegExp(
+    "^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)dd$"
+  );
+  var salaryPattern = new RegExp("^[0-9]{7,8}$");
+  var hourWorkPattern = new RegExp("^[0-9]{2,3}$");
   if (!isRequired(staff.account)) {
-    isValid = false
-    document.getElementById("tbTKNV").innerHTML = "Tài khoản không được để trống";
+    isValid = false;
+    document.getElementById("tbTKNV").innerHTML =
+      "Tài khoản không được để trống";
+  } else if (!accountPattern.test(staff.account)) {
+    isValid = false;
+    document.getElementById("tbTKNV").innerHTML =
+      "Tài khoản phải từ 4 - 6 ký tự";
+  } else {
+    document.getElementById("tbTKNV").innerHTML = " ";
   }
+
   if (!isRequired(staff.fullName)) {
-    isValid = false
+    isValid = false;
     document.getElementById("tbTen").innerHTML = "Tên không được để trống";
+  } else if (!fullNamePattern.test(staff.fullName)) {
+    isValid = false;
+    document.getElementById("tbTen").innerHTML = "Tên nhân viên không hợp lệ";
+  } else {
+    document.getElementById("tbTen").innerHTML = " ";
   }
+
   if (!isRequired(staff.email)) {
-    isValid = false
+    isValid = false;
     document.getElementById("tbEmail").innerHTML = "Email không được để trống";
+  } else if (!emailPattern.test(staff.email)) {
+    isValid = false;
+    document.getElementById("tbEmail").innerHTML = "Email không đúng định dạng";
+  } else {
+    document.getElementById("tbEmail").innerHTML = " ";
   }
+
   if (!isRequired(staff.password)) {
-    isValid = false
-    document.getElementById("tbMatKhau").innerHTML = "Mật khẩu không được để trống";
+    isValid = false;
+    document.getElementById("tbMatKhau").innerHTML =
+      "Mật khẩu không được để trống";
+  } else if (!pwPattern.test(staff.password)) {
+    isValid = false;
+    document.getElementById("tbMatKhau").innerHTML =
+      "Mật khẩu không đúng định dạng";
+  } else {
+    document.getElementById("tbMatKhau").innerHTML = " ";
   }
+
   if (!isRequired(staff.dow)) {
-    isValid = false
+    isValid = false;
     document.getElementById("tbNgay").innerHTML = "Vui lòng chọn ngày làm";
   }
+  // else if(!dowPattern.test(staff.dow))
+  // {
+  //   isValid = false
+  //   document.getElementById("tbNgay").innerHTML = "Ngày làm không đúng định dạng"
+  // }
+  else {
+    document.getElementById("tbNgay").innerHTML = " ";
+  }
+
   if (!isRequired(staff.salary)) {
-    isValid = false
-    document.getElementById("tbLuongCB").innerHTML = "Lương không được để trống";
+    isValid = false;
+    document.getElementById("tbLuongCB").innerHTML =
+      "Lương không được để trống";
+  } else if (!salaryPattern.test(staff.salary)) {
+    isValid = false;
+    document.getElementById("tbLuongCB").innerHTML =
+      "Lương phải từ 1.000.000 ~ 20.000.000";
+  } else {
+    document.getElementById("tbLuongCB").innerHTML = " ";
   }
-  if (!isRequired(staff.position)) {
-    isValid = false
+
+  if (!isRequired(staff.position) || staff.position === "Chọn chức vụ") {
+    isValid = false;
     document.getElementById("tbChucVu").innerHTML = "Vui lòng chọn chức vụ";
+  } else {
+    document.getElementById("tbChucVu").innerHTML = " ";
   }
+
   if (!isRequired(staff.hourWork)) {
-    isValid = false
-    document.getElementById("tbGiolam").innerHTML = "Giờ làm không được để trống";
+    isValid = false;
+    document.getElementById("tbGiolam").innerHTML =
+      "Giờ làm không được để trống";
+  } else if (!hourWorkPattern.test(staff.hourWork)) {
+    isValid = false;
+    document.getElementById("tbGiolam").innerHTML =
+      "Giờ làm phải từ 80 ~ 200 giờ";
+  } else {
+    document.getElementById("tbGiolam").innerHTML = " ";
   }
-  return isValid
+  return isValid;
 }
 
 function isRequired(value) {
