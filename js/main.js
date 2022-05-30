@@ -28,7 +28,7 @@ function DOMStaff() {
   var email = document.getElementById("email").value;
   var password = document.getElementById("password").value;
   var dow = document.getElementById("datepicker").value;
-  var salary = document.getElementById("luongCB").value;
+  var salary = +document.getElementById("luongCB").value;
   var position = document.getElementById("chucvu").value;
   var hourWork = document.getElementById("gioLam").value;
 
@@ -45,7 +45,7 @@ function DOMStaff() {
 
   return staff;
 }
-
+var x = DOMStaff();
 //Thêm staff
 function addStaff() {
   var staff = DOMStaff();
@@ -56,7 +56,6 @@ function addStaff() {
   staffs.push(staff);
   // Lưu localStorage
   localStorage.setItem("staffs", JSON.stringify(staffs));
-
   display(staffs);
   resetForm();
 }
@@ -188,8 +187,8 @@ function validation() {
   var dowPattern = new RegExp(
     "^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)dd$"
   );
-  var salaryPattern = new RegExp("^[0-9]{7,8}$");
   var hourWorkPattern = new RegExp("^[0-9]{2,3}$");
+  var salaryPattern = new RegExp("^[0-9$]");
   if (!isRequired(staff.account)) {
     isValid = false;
     document.getElementById("tbTKNV").innerHTML =
@@ -251,7 +250,12 @@ function validation() {
     isValid = false;
     document.getElementById("tbLuongCB").innerHTML =
       "Lương không được để trống";
-  } else if (!salaryPattern.test(staff.salary)) {
+      if (!salaryPattern.test(staff.salary)) {
+        isValid = false;
+        document.getElementById("tbLuongCB").innerHTML =
+          "Lương không đúng định dạng";
+      }
+  }  else if (staff.salary < 1000000 || staff.salary > 20000000) {
     isValid = false;
     document.getElementById("tbLuongCB").innerHTML =
       "Lương phải từ 1.000.000 ~ 20.000.000";
