@@ -45,7 +45,7 @@ function DOMStaff() {
 
   return staff;
 }
-var x = DOMStaff();
+
 //Thêm staff
 function addStaff() {
   var staff = DOMStaff();
@@ -165,6 +165,7 @@ function searchStaff() {
   display(newStaffs);
 }
 
+
 function findAccount(account) {
   var index = -1;
   for (var i = 0; i < staffs.length; i++) {
@@ -175,18 +176,19 @@ function findAccount(account) {
   }
   return index;
 }
+
 function validation() {
   var staff = DOMStaff();
   var isValid = true;
-  var accountPattern = new RegExp("^[a-z0-9]{4,6}$");
+  var accountPattern = new RegExp("^[0-9]{4,6}$");
   var fullNamePattern = new RegExp("^[A-Za-z$]");
   var pwPattern = new RegExp(
     "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
   );
   var emailPattern = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$");
-  var dowPattern = new RegExp(
-    "^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)dd$"
-  );
+  // var dowPattern = new RegExp(
+  //   "^\d{4}[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$"
+  // );
   var hourWorkPattern = new RegExp("^[0-9]{2,3}$");
   var salaryPattern = new RegExp("^[0-9$]");
   if (!isRequired(staff.account)) {
@@ -196,7 +198,7 @@ function validation() {
   } else if (!accountPattern.test(staff.account)) {
     isValid = false;
     document.getElementById("tbTKNV").innerHTML =
-      "Tài khoản phải từ 4 - 6 ký tự";
+      "Tài khoản phải từ 4 - 6 số";
   } else {
     document.getElementById("tbTKNV").innerHTML = " ";
   }
