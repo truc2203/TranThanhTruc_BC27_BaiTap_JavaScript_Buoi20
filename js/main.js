@@ -180,7 +180,7 @@ function findAccount(account) {
 function validation() {
   var staff = DOMStaff();
   var isValid = true;
-  var accountPattern = new RegExp("^[0-9]{4,6}$");
+  var accountPattern = new RegExp("^[A-Za-z0-9]{4,6}$");
   var fullNamePattern = new RegExp("^[A-Za-z$]");
   var pwPattern = new RegExp(
     "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
@@ -198,7 +198,7 @@ function validation() {
   } else if (!accountPattern.test(staff.account)) {
     isValid = false;
     document.getElementById("tbTKNV").innerHTML =
-      "Tài khoản phải từ 4 - 6 số";
+      "Tài khoản phải từ 4 - 6 kyS số";
   } else {
     document.getElementById("tbTKNV").innerHTML = " ";
   }
